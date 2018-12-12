@@ -1,0 +1,22 @@
+{
+  "name": "alzundaz/nitrophp",
+  "authors": [
+    {
+      "name": "GothShoot",
+      "email": "contact@nitroxgroup.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Framework\\": "Core/Framework/",
+      "Core\\": "Core",
+      "Module\\": "Module"
+    }
+  },
+  "require": {
+    "php": "^7.1",
+    "twig/twig": "^2.4"
+  },
+  "require-dev": {
+  }
+}
