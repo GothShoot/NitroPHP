@@ -6,10 +6,11 @@ require ROOT_DIR . '/Config/core.php';
 
 class Kernel
 {
-    public function loadTwig($module)
+    public function loadTwig()
     {
         if(!isset($twig))
-        $loader = new Twig_Loader_Filesystem("/$module/view");
+        $loader = new Twig_Loader_Filesystem();
+        $loader->addPath(ROOT_DIR."Module/Core/View", 'Core');
         $twig = new Twig_Environment($loader, array(
             'cache' => (CACHE_MODE ? false : "/Var/Cache/View/$module"),
             'auto_reload' => (MODE == 'DEV' ? true : false)
