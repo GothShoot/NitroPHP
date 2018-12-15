@@ -14,7 +14,7 @@ class Kernel
             $loader = new Twig_Loader_Filesystem();
             $loader->addPath(ROOT_DIR."/Module/Core/View", 'Core');
             $twig = new Twig_Environment($loader, array(
-                'cache' => (CACHE_MODE ? false : "/Var/Cache/View"),
+                'cache' => (CACHE_MODE ? "/Var/Cache/View" : false),
                 'auto_reload' => (MODE == 'DEV' ? true : false)
             ));
             // $twig->addExtension(new Twig_Extension_Core());
