@@ -1,6 +1,8 @@
 <?php
-define('ROOT_DIR', __DIR__.'/..');
-define('WEBROOT_DIR', ROOT_DIR.'/Public');
+if(!defined ( 'ROOT_DIR' )){
+    define('ROOT_DIR', __DIR__.'/..');
+    define('WEBROOT_DIR', ROOT_DIR.'/Public');
+}
 require ROOT_DIR . '/vendor/autoload.php';
 require ROOT_DIR . '/Config/core.php';
 
@@ -8,16 +10,18 @@ class Kernel
 {
     public function loadTwig()
     {
-        if(!isset($twig))
-        $loader = new Twig_Loader_Filesystem();
-        $loader->addPath(ROOT_DIR."Module/Core/View", 'Core');
-        $twig = new Twig_Environment($loader, array(
-            'cache' => (CACHE_MODE ? false : "/Var/Cache/View/$module"),
-            'auto_reload' => (MODE == 'DEV' ? true : false)
-        ));
-        $twig->addExtension(new Twig_Extension_Core());
-        $twig->addExtension(new Twig_Extension_Escaper('html'));
-        return $twig;
+        if(isset($twig) == false){
+            $loader = new Twig_Loader_Filesystem();
+            $loader->addPath(ROOT_DIR."/Module/Core/View", 'Core');
+            $twig = new Twig_Environment($loader, array(
+                'cache' => (CACHE_MODE ? false : "/Var/Cache/View"),
+                'auto_reload' => (MODE == 'DEV' ? true : false)
+            ));
+            // $twig->addExtension(new Twig_Extension_Core());
+            // $twig->addExtension(new Twig_Extension_Escaper('html'));
+            return $twig;
+        }
+        
     }
 
     public function loadJsonConfigGroup($path, $file = null)
