@@ -12,9 +12,9 @@ class Kernel
     {
         if(isset($twig) == false){
             $loader = new Twig_Loader_Filesystem();
-            $loader->addPath(ROOT_DIR."/Module/Core/View", 'Core');
+            $loader->addPath(ROOT_DIR.'/Module/Core/View', 'Core');
             $twig = new Twig_Environment($loader, array(
-                'cache' => (CACHE_MODE ? "/Var/Cache/View" : false),
+                'cache' => (CACHE_MODE ? ROOT_DIR.'/Var/Cache/View' : false),
                 'auto_reload' => (MODE == 'DEV' ? true : false)
             ));
             // $twig->addExtension(new Twig_Extension_Core());
@@ -24,19 +24,52 @@ class Kernel
         
     }
 
-    public function loadJsonConfigGroup($path, $file = null)
+    public function loadJsonConfig($path, $file = null)
     {
-        $path = ROOT_DIR .'/Config'. $path . '/';
+        $path = ROOT_DIR.'/Config'. $path . '/';
         if($file) {
             return json_decode(file_get_contents($path . $file), true);
         }
         $raw_files = scandir($path);
+        $files = [];
         foreach($raw_files as $file){
             if (is_file($path . $file)) $files[] = $path . $file;
         }
+        $configs = [];
         foreach($files as $file) {
             $configs = array_merge($configs, json_decode(file_get_contents($file[$o]), true));
         }
         return $configs;
+    }
+
+    public function listModule($force = false)
+    {
+        if( !file_exists( (ROOT_DIR.'/Var/Cache/App') ) ){mkdir(ROOT_DIR.'/Var/Cache/App', 0775, true);}
+        if( !file_exists(ROOT_DIR.'/Var/Cache/App/module.cache') || $force ){
+            $raw_files = scandir( ROOT_DIR.'/Module/' );
+            $files = [];
+            foreach($raw_files as $file){
+                if ($file != '.' && $file != '..') { $files[] = $file; }
+            }
+            if($force || MODE == 'DEV'){unlink(ROOT_DIR.'/Var/Cache/App/module.cache');}
+            file_put_contents(ROOT_DIR.'/Var/Cache/App/module.cache', serialize($files));
+        }
+        return unserialize(file_get_contents(ROOT_DIR.'/Var/Cache/App/module.cache'));
+    }
+
+    public function loadRoute($force = false)
+    {
+        if( !file_exists( (ROOT_DIR.'/Var/Cache/App') ) ){mkdir(ROOT_DIR.'/Var/Cache/App', 0775, true);}
+        if( !file_exists(ROOT_DIR.'/Var/Cache/App/route.cache') || $force ){
+            $modules = self::listModule();
+            $routes = [];
+            foreach($modules as $module){
+                $routes = array_merge($routes, self::loadJsonConfig(ROOT_DIR.'/Module/'.$module.'/Config/Routes'));
+            }
+            return $routes;
+            if($force || MODE == 'DEV'){unlink(ROOT_DIR.'/Var/Cache/App/route.cache');}
+            file_put_contents(ROOT_DIR.'/Var/Cache/App/route.cache', serialize($routes));
+        }
+        return unserialize(file_get_contents(ROOT_DIR.'/Var/Cache/App/route.cache'));
     }
 }
