@@ -26,7 +26,6 @@ class Kernel
 
     public function loadJsonConfig($path, $file = null)
     {
-        $path = ROOT_DIR.'/Config'. $path . '/';
         if($file) {
             return json_decode(file_get_contents($path . $file), true);
         }
@@ -37,7 +36,7 @@ class Kernel
         }
         $configs = [];
         foreach($files as $file) {
-            $configs = array_merge($configs, json_decode(file_get_contents($file[$o]), true));
+            $configs = array_merge($configs, json_decode(file_get_contents($file), true));
         }
         return $configs;
     }
@@ -64,7 +63,7 @@ class Kernel
             $modules = self::listModule();
             $routes = [];
             foreach($modules as $module){
-                $routes = array_merge($routes, self::loadJsonConfig(ROOT_DIR.'/Module/'.$module.'/Config/Routes'));
+                $routes = array_merge($routes, self::loadJsonConfig(ROOT_DIR.'/Module/'.$module.'/Config/Routes/'));
             }
             return $routes;
             if($force || MODE == 'DEV'){unlink(ROOT_DIR.'/Var/Cache/App/route.cache');}
