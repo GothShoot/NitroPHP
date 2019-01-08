@@ -1,5 +1,0 @@
-[
-    {"name":"test1", "path":"/1", "controller":"TestController:index", "parameters":{} },
-    {"name":"notif", "path":"/test/notifications", "controller":"TestController:notif", "parameters":{} },
-    {"name":"notif_delete", "path":"/test/notifications/delete/{id}", "controller":"TestController:delete", "parameters":{"id":"{id}"} }
-]
