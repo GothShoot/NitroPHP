@@ -35,7 +35,7 @@ class Controller
 
     private function loadTwig()
     {
-        if(isset($this->twig) == false){
+        if(!isset($this->twig)){
             if( !file_exists(ROOT_DIR.'/Var/Cache/App/twig.cache') || $this->appconf['dev'] ){
                 $loader = new Twig_Loader_Filesystem();
                 foreach($this->configLoader->listModule() as $module){
@@ -62,15 +62,22 @@ class Controller
         }
     }
 
+    /**
+     * 
+     * @param $view the view you want to display
+     * 
+     * @param $param value you want to access in view
+     * 
+     */
     protected function render(string $view, array $param=[])
     {
         $this->loadTwig();
         echo $this->twig->render($view, $param);
     }
 
-    protected function renderblock(string $view,array $param=[],string $block)
+    protected function renderblock(string $view, array $param=[], string $block)
     {
         $this->loadTwig();
-        return $this->twig->render($view, $param);
+        echo $this->twig->render($view, $param);
     }
 }
