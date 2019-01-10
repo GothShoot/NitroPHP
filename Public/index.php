@@ -7,9 +7,13 @@
     require_once ROOT_DIR.'/vendor/autoload.php';
     use Core\Profiler;
     use Core\Router;
-    $router=new Router();
-    $router->getController();
-    $end = microtime(true);
-    Profiler::getInstance()->setTime(['name'=>'App', 'start'=>$start, 'end'=>$end]);
-    Profiler::getInstance()->profileBar();
+    if(isset($_GET['token'])){
+        Profiler::getInstance()->profilerPage();
+    } else {
+        $router=new Router();
+        $router->getController();
+        $end = microtime(true);
+        Profiler::getInstance()->setTime(['name'=>'App', 'start'=>$start, 'end'=>$end]);
+        Profiler::getInstance()->profileBar();
+    }
 ?>

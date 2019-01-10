@@ -12,18 +12,60 @@ class Profiler extends Singleton
     private $error = [];
     private $alert = [];
     private $dump = [];
+    private $page = ['time', 'error', 'alert', 'dump'];
+
+    public function profilerPage()
+    {
+        $profil = json_decode(file_get_contents(ROOT_DIR.'/Var/Cache/Profile/'. $_GET['token'] .'.json'), true);
+
+        $this->token = $profil['token'];
+        $this->time = $profil['time'];
+        $this->error = $profil['error'];
+        $this->alert = $profil['alert'];
+        $this->dump = $profil['dump'];
+
+        $this->printProfile();
+    }
 
     public function printProfile()
     {
-        echo '<hr />timeline<pre>';
-        print_r($this->time);
-        echo '</pre><br />error<pre>';
-        print_r($this->error);
-        echo '</pre><br />alert<pre>';
-        print_r($this->alert);
-        echo '</pre><br />dump<pre>';
-        print_r($this->dump);
-        echo '</pre><hr /><a href=?profiletoken="'.$this->token.'">see more</a>';
+        echo 'token: '.$this->token.'<br />';
+        echo '<a href="'. explode('?', $_SERVER['REQUEST_URI'])[0] .'">back</a> ';
+        foreach($this->page as $page){
+            echo '<a href="?token='. $this->token .'&page='. $page .'">'. $page .'</a> ';
+        }
+        echo '<hr />';
+        echo '<table>';
+        switch($_GET['page']){
+            case 'time':
+                echo '<tr><td>object</td><td>execution time</td></tr>';
+                foreach($this->time as $time){
+                    echo '<tr><td>'.$time['name'].'</td><td>'.$this->formatTime($time['ExecutionTime']).'</td></tr>';
+                }
+            break;
+            case 'error' :
+                foreach($this->error as $error){
+                    echo '<tr><td>error<pre>';
+                    print_r($this->error);
+                    echo '</pre></td></tr>';
+                }
+            break;
+            case 'alert' :
+                foreach($this->alert as $alert){
+                    echo '<tr><td>alert<pre>';
+                    print_r($this->alert);
+                    echo '</pre></td></tr>';
+                }
+            break;
+            case 'dump':
+                foreach($this->dump as $dump){
+                    echo '<tr><td>dump<pre>';
+                    print_r($this->dump);
+                    echo '</pre></td></tr>';
+                }
+            break;
+        }
+        echo '</table>';
     }
 
     public function profileBar()
@@ -37,11 +79,23 @@ class Profiler extends Singleton
                 .time-red { background-color: #FF4500; }
             </style>
             <div class="profileBar">
-            <a class="time-'.($this->time[count($this->time)-1] < 150 ? 'green':'red' ).'" href="?token='. $this->token .'">'. $this->time[count($this->time)-1]['ExecutionTime'] .'</a>
-            <a href="?token='. $this->token .'">erreur: '. count($this->error) .'</a>
-            <a href="?token='. $this->token .'">dump: '. count($this->dump) .'</a>
+            <a class="time-'.($this->time[count($this->time)-1]['ExecutionTime'] < 150 ? 'green':'red' ).'" href="?token='. $this->token .'&page=time">'. $this->formatTime($this->time[count($this->time)-1]['ExecutionTime']) .'</a>
+            <a href="?token='. $this->token .'&page=error">erreur: '. count($this->error) .'</a>
+            <a href="?token='. $this->token .'&page=dump">dump: '. count($this->dump) .'</a>
             </div>
         ';
+    }
+
+    private function formatTime($time)
+    {
+        return number_format($time , 2 , "ms" , "s" );
+    }
+
+    public function __destruct()
+    {
+        $profil = ['token'=>$this->token, 'time'=>$this->time, 'error'=>$this->error, 'alert'=>$this->alert, 'dump'=>$this->dump];
+        if( !file_exists( (ROOT_DIR.'/Var/Cache/Profile') ) ){mkdir(ROOT_DIR.'/Var/Cache/Profile', 0775, true);}
+        file_put_contents(ROOT_DIR.'/Var/Cache/Profile/'. $this->token .'.json', json_encode($profil));
     }
 
 // Getters and Setters
@@ -55,7 +109,7 @@ class Profiler extends Singleton
     {
         if(!isset($this->token)) {$this->token = time().'_'.rand(0, 20);}
         $data['id'] = count($this->time);
-        $data['ExecutionTime'] = number_format((round( $data['end']-$data['start'], 3)* 1000) , 2 , "ms" , "s" );
+        $data['ExecutionTime'] =(round( $data['end']-$data['start'], 3)* 1000);
         array_push($this->time, $data);
     }
 
