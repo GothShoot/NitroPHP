@@ -44,24 +44,21 @@ class Profiler extends Singleton
                 }
             break;
             case 'error' :
+                echo '<tr><td>type</td><td>value</td></tr>';
                 foreach($this->error as $error){
-                    echo '<tr><td>error<pre>';
-                    print_r($this->error);
-                    echo '</pre></td></tr>';
+                    echo '<tr><td>'.$error.'</td></tr>';
                 }
             break;
             case 'alert' :
+                echo '<tr><td>type</td><td>value</td></tr>';
                 foreach($this->alert as $alert){
-                    echo '<tr><td>alert<pre>';
-                    print_r($this->alert);
-                    echo '</pre></td></tr>';
+                    echo '<tr><td>'.$alert.'</td></tr>';
                 }
             break;
             case 'dump':
+                echo '<tr><td>type</td><td>value</td></tr>';
                 foreach($this->dump as $dump){
-                    echo '<tr><td>dump<pre>';
-                    print_r($this->dump);
-                    echo '</pre></td></tr>';
+                    echo '<tr><td>'.gettype($dump).'</td><td>'.$dump.'</td></tr>';
                 }
             break;
         }
@@ -77,11 +74,13 @@ class Profiler extends Singleton
                 .profileBar a { padding: 3px; color: #FFF; }
                 .time-green { background-color: #32CD32; }
                 .time-red { background-color: #FF4500; }
+                .time-orange { background-color: #FFA500; }
             </style>
             <div class="profileBar">
             <a class="time-'.($this->time[count($this->time)-1]['ExecutionTime'] < 150 ? 'green':'red' ).'" href="?token='. $this->token .'&page=time">'. $this->formatTime($this->time[count($this->time)-1]['ExecutionTime']) .'</a>
-            <a href="?token='. $this->token .'&page=error">erreur: '. count($this->error) .'</a>
-            <a href="?token='. $this->token .'&page=dump">dump: '. count($this->dump) .'</a>
+            <a class="time-'.(count($this->error) == 0 ? 'green':'red' ).'" href="?token='. $this->token .'&page=error">erreur: '. count($this->error) .'</a>
+            <a class="time-'.(count($this->alert) == 0 ? 'green':'orange' ).'" href="?token='. $this->token .'&page=alert">alert: '. count($this->alert) .'</a>
+            <a class="time-'.(count($this->dump) == 0 ? 'green':'orange' ).'" href="?token='. $this->token .'&page=dump">dump: '. count($this->dump) .'</a>
             </div>
         ';
     }
