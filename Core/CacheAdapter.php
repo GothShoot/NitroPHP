@@ -38,15 +38,12 @@ class CacheAdapter extends Singleton // implements SerializedCacheAdapter, JsonC
     {
         switch ($type) {
             case 'json':
-                echo 'get json';
                 return JsonCacheAdapter::getCache($file);
                 break;
             case 'object':
-                echo 'get object';
                 return SerializedCacheAdapter::getCache($file);
                 break;
         }
-        echo 'get null';
         return null;
     }
 }
@@ -80,7 +77,6 @@ class JsonCacheAdapter
     {
         if(file_exists(ROOT_DIR.'/Var/Cache/'.$file.'.json') ){
             $result = json_decode(file_get_contents(ROOT_DIR.'/Var/Cache/'.$file.'.json'), true);
-            print_r($result);
             return $result;
         }
         return null;
