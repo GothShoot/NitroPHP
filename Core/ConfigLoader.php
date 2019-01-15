@@ -3,17 +3,28 @@
 namespace Core;
 
 use Core\Singleton;
+use Core\CacheAdapter;
 
 class ConfigLoader extends Singleton
 {
     private $appconf;
 
-    public function getAppConf()
+    private $module;
+
+    public function getAppConf():array
     {
         if(!$this->appconf){
             $this->appconf = $this->loadJsonConfig(ROOT_DIR.'/Config/', 'app.json');
         }
         return $this->appconf;
+    }
+
+    public function getModule():array
+    {
+        if(!$this->module){
+            $this->module = $this->listModule();
+        }
+        return $this->module;
     }
 
     public function loadJsonConfig(string $path, string $file = null):array
@@ -33,10 +44,11 @@ class ConfigLoader extends Singleton
         return $configs;
     }
 
-    public function listModule(bool $force = null):array
+    private function listModule():array
     {
-        if( !file_exists( (ROOT_DIR.'/Var/Cache/App') ) ){mkdir(ROOT_DIR.'/Var/Cache/App', 0775, true);}
-        if( !file_exists(ROOT_DIR.'/Var/Cache/App/module.json') || $force || $this->appconf['dev'] ){
+        $cacheAdapter = CacheAdapter::getInstance();
+        $type = $cacheAdapter->cacheExists('App/module');
+        if( $type === null || $this->appconf['dev'] ){
             $raw_files = scandir( ROOT_DIR.'/Module/' );
             $files = [];
             foreach($raw_files as $file){
@@ -45,8 +57,8 @@ class ConfigLoader extends Singleton
                     $files[$file]['file'] = $file;
                 }
             }
-            file_put_contents(ROOT_DIR.'/Var/Cache/App/module.json', json_encode($files));
+            $type = $cacheAdapter->setCache('App/module', $files);
         }
-        return json_decode(file_get_contents(ROOT_DIR.'/Var/Cache/App/module.json'), true);
+        return $cacheAdapter->getCache('App/module', $type);
     }
 }

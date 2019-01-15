@@ -17,7 +17,7 @@ class Router
     {
         $configLoader = ConfigLoader::getInstance();
         if( !file_exists(ROOT_DIR.'/Var/Cache/App/route.json') || $force || $configLoader->getAppConf()['dev'] ){
-            $modules = $configLoader->listModule();
+            $modules = $configLoader->getModule();
             $routes = [];
             foreach($modules as $module){
                 if($module['enabled']){
