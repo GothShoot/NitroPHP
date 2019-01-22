@@ -5,8 +5,8 @@
         define('WEBROOT_DIR', ROOT_DIR.'/Public');
     }
     require_once ROOT_DIR.'/vendor/autoload.php';
-    use Core\Profiler;
-    use Core\Router;
+    use Module\ProfilerModule\Services\Profiler;
+    use Module\RouterModule\Services\Router;
     if(isset($_GET['token'])){
         Profiler::getInstance()->profilerPage();
     } else {
