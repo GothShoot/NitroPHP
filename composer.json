@@ -12,8 +12,8 @@
     ],
     "require": {
         "php": "^7.1",
-        "alzundaz/modulemanager": "*",
-        "alzundaz/viewcomponents": "*",
-        "alzundaz/routingcomponents": "*"
+        "alzundaz/module-manager": "*",
+        "alzundaz/view-components": "*",
+        "alzundaz/routing-components": "*"
     }
 }
