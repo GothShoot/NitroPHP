@@ -1,11 +1,12 @@
 <?php
 
-namespace Module\CoreModule\Services;
+namespace Alzundaz\NitroPHP\Services;
 
-use Module\CoreModule\BaseClass\Singleton;
-use Module\CoreModule\Services\CacheHandler;
+use Alzundaz\NitroPHP\BaseClass\Singleton;
+use Alzundaz\NitroPHP\Services\CacheHandler;
+use Alzundaz\ModuleManager\Services\ModuleManager;
 
-class ConfigLoader extends Singleton
+class ConfigHandler extends Singleton
 {
     private $appconf;
 
@@ -22,7 +23,8 @@ class ConfigLoader extends Singleton
     public function getModule():array
     {
         if(!$this->module){
-            $this->module = $this->listModule();
+            if($this->appconf['dev']) $this->module = ModuleManager::GetInstance()->listInstaledModule();
+            $this->loadJsonConfig(ROOT_DIR.'/Config/', 'module.json');
         }
         return $this->module;
     }
@@ -44,21 +46,8 @@ class ConfigLoader extends Singleton
         return $configs;
     }
 
-    private function listModule():array
+    public function setConfig(string $path, array $data)
     {
-        $CacheHandler = CacheHandler::getInstance();
-        $type = $CacheHandler->cacheExists('App/module');
-        if( $type === null || $this->appconf['dev'] ){
-            $raw_files = scandir( ROOT_DIR.'/Module/' );
-            $files = [];
-            foreach($raw_files as $file){
-                if ($file != '.' && $file != '..') {
-                    $files[$file] = $this->loadJsonConfig(ROOT_DIR.'/Module/'.$file.'/Config/');
-                    $files[$file]['file'] = $file;
-                }
-            }
-            $type = $CacheHandler->setCache('App/module', $files);
-        }
-        return $CacheHandler->getCache('App/module', $type);
+        file_put_contents($path, json_encode($data, JSON_PRETTY_PRINT));
     }
 }

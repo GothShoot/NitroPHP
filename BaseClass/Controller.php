@@ -1,8 +1,8 @@
 <?php
 
-namespace Module\CoreModule\BaseClass;
+namespace Alzundaz\NitroPHP\BaseClass;
 
-use Module\CoreModule\Services\ConfigLoader;
+use Alzundaz\NitroPHP\Services\ConfigLoader;
 use Module\ViewModule\Services\TwigFactory;
 
 class Controller

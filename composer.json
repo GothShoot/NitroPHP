@@ -1,23 +1,19 @@
 {
-  "name": "alzundaz/nitrophp",
-  "description": "Modular app framework",
-  "authors": [
-    {
-      "name": "GothShoot",
-      "email": "contact@nitroxgroup.com"
+    "name": "alzundaz/nitrophp",
+    "description": "Heart of NitroPHP",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "GothShoot",
+            "email": "romuald.mocq@yahoo.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "alzundaz/modulemanager": "*",
+        "alzundaz/viewcomponents": "*",
+        "alzundaz/routingcomponents": "*"
     }
-  ],
-  "autoload": {
-    "psr-4": {
-      "Framework\\": "Core/Framework/",
-      "Core\\": "Core",
-      "Module\\": "Module"
-    }
-  },
-  "require": {
-    "php": "^7.1",
-    "twig/twig": "^2.4"
-  },
-  "require-dev": {
-  }
 }

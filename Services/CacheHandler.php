@@ -1,8 +1,8 @@
 <?php
 
-namespace Module\CoreModule\Services;
+namespace Alzundaz\NitroPHP\Services;
 
-use Module\CoreModule\BaseClass\Singleton;
+use Alzundaz\NitroPHP\BaseClass\Singleton;
 
 class CacheHandler extends Singleton // implements SerializedCacheHandler, JsonCacheHandler
 {

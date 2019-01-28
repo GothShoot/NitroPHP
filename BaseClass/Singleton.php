@@ -1,6 +1,6 @@
 <?php
 
-namespace Module\CoreModule\BaseClass;
+namespace Alzundaz\NitroPHP\BaseClass;
 
 class Singleton
 {
