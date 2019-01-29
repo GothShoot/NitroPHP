@@ -59,6 +59,7 @@ class ConfigHandler extends Singleton
     public function loadJsonConfig(string $path, string $file = null):array
     {
         if( isset($file) ) {
+            var_dump($path);
             return json_decode(file_get_contents($path . $file), true);
         }
         $raw_files = scandir($path);
