@@ -2,7 +2,7 @@
 
 namespace Alzundaz\NitroPHP\BaseClass;
 
-use Alzundaz\NitroPHP\Services\ConfigLoader;
+use Alzundaz\NitroPHP\Services\ConfigHandler;
 use Module\ViewModule\Services\TwigFactory;
 
 class Controller
@@ -13,12 +13,12 @@ class Controller
 
     protected $appconf;
 
-    protected $configLoader;
+    protected $ConfigHandler;
 
     public function __construct()
     {
-        $this->configLoader = ConfigLoader::getInstance();
-        $this->appconf = $this->configLoader->getAppConf();
+        $this->ConfigHandler = ConfigHandler::getInstance();
+        $this->appconf = $this->ConfigHandler->getAppConf();
     }
 
     private function __clone()
