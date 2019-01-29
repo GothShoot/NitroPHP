@@ -15,5 +15,10 @@
         "alzundaz/module-manager": "*",
         "alzundaz/view-components": "*",
         "alzundaz/routing-components": "*"
+    },
+    "autoload": {
+        "psr-4" : {
+            "Alzundaz\\NitroPHP\\" : ""
+        }
     }
 }
