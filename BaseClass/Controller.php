@@ -3,7 +3,7 @@
 namespace Alzundaz\NitroPHP\BaseClass;
 
 use Alzundaz\NitroPHP\Services\ConfigHandler;
-use Module\ViewModule\Services\TwigFactory;
+use Alzundaz\View\Services\TwigFactory;
 
 class Controller
 {
