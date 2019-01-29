@@ -42,7 +42,7 @@ class ConfigHandler extends Singleton
     public function getModule():array
     {
         if(!$this->module){
-            if( $this->appconf['dev'] || !file_exists(ROOT_DIR.'/Config/module.json') ) $this->module = ModuleManager::GetInstance()->listInstaledModule();
+            if( $this->appconf['dev'] || !file_exists(ROOT_DIR.'/Config/module.json') ) $this->module = ModuleManager::GetInstance()->listInstalledModule();
             $this->loadJsonConfig(ROOT_DIR.'/Config/', 'module.json');
         }
         return $this->module;
