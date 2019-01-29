@@ -12,6 +12,20 @@ class ConfigHandler extends Singleton
 
     private $module;
 
+    /**
+     * automaticaly register appconf and modules on singleton 
+     */
+    public function __construct()
+    {
+        $this->getAppConf();
+        $this->getModule();
+    }
+
+    /**
+     * Getters for app config
+     *
+     * @return array $this->appConf
+     */
     public function getAppConf():array
     {
         if(!$this->appconf){
@@ -20,15 +34,27 @@ class ConfigHandler extends Singleton
         return $this->appconf;
     }
 
+    /**
+     * Getters for modules
+     *
+     * @return array $this->module
+     */
     public function getModule():array
     {
         if(!$this->module){
-            if($this->appconf['dev']) $this->module = ModuleManager::GetInstance()->listInstaledModule();
+            if( $this->appconf['dev'] | !file_exists(ROOT_DIR.'/Config/', 'module.json') ) $this->module = ModuleManager::GetInstance()->listInstaledModule();
             $this->loadJsonConfig(ROOT_DIR.'/Config/', 'module.json');
         }
         return $this->module;
     }
 
+    /**
+     * Load single/multiple json config file
+     *
+     * @param string $path
+     * @param string $file if not given all json in path be loaded
+     * @return array $configs
+     */
     public function loadJsonConfig(string $path, string $file = null):array
     {
         if($file) {
@@ -46,6 +72,13 @@ class ConfigHandler extends Singleton
         return $configs;
     }
 
+    /**
+     * Set Config in json file
+     *
+     * @param string $path
+     * @param array $data
+     * @return void
+     */
     public function setConfig(string $path, array $data)
     {
         file_put_contents($path, json_encode($data, JSON_PRETTY_PRINT));
