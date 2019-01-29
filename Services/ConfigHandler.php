@@ -17,8 +17,9 @@ class ConfigHandler extends Singleton
      */
     public function __construct()
     {
-        $this->getAppConf();
-        $this->getModule();
+        $this->appconf = $this->loadJsonConfig(ROOT_DIR.'/Config/', 'app.json');
+        if( $this->appconf['dev'] || !file_exists(ROOT_DIR.'/Config/module.json') ) $this->module = ModuleManager::GetInstance()->listInstalledModule();
+        $this->loadJsonConfig(ROOT_DIR.'/Config/', 'module.json');
     }
 
     /**
@@ -28,9 +29,9 @@ class ConfigHandler extends Singleton
      */
     public function getAppConf():array
     {
-        if(!$this->appconf){
-            $this->appconf = $this->loadJsonConfig(ROOT_DIR.'/Config/', 'app.json');
-        }
+        // if(!$this->appconf){
+        //     $this->appconf = $this->loadJsonConfig(ROOT_DIR.'/Config/', 'app.json');
+        // }
         return $this->appconf;
     }
 
@@ -41,10 +42,10 @@ class ConfigHandler extends Singleton
      */
     public function getModule():array
     {
-        if(!$this->module){
-            if( $this->appconf['dev'] || !file_exists(ROOT_DIR.'/Config/module.json') ) $this->module = ModuleManager::GetInstance()->listInstalledModule();
-            $this->loadJsonConfig(ROOT_DIR.'/Config/', 'module.json');
-        }
+        // if(!$this->module){
+        //     if( $this->appconf['dev'] || !file_exists(ROOT_DIR.'/Config/module.json') ) $this->module = ModuleManager::GetInstance()->listInstalledModule();
+        //     $this->loadJsonConfig(ROOT_DIR.'/Config/', 'module.json');
+        // }
         return $this->module;
     }
 
