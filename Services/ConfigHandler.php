@@ -18,8 +18,6 @@ class ConfigHandler extends Singleton
     public function __construct()
     {
         $this->appconf = $this->loadJsonConfig(ROOT_DIR.'/Config/', 'app.json');
-        if( $this->appconf['dev'] || !file_exists(ROOT_DIR.'/Config/module.json') ) $this->module = ModuleManager::GetInstance()->listInstalledModule();
-        $this->loadJsonConfig(ROOT_DIR.'/Config/', 'module.json');
     }
 
     /**
@@ -29,9 +27,6 @@ class ConfigHandler extends Singleton
      */
     public function getAppConf():array
     {
-        // if(!$this->appconf){
-        //     $this->appconf = $this->loadJsonConfig(ROOT_DIR.'/Config/', 'app.json');
-        // }
         return $this->appconf;
     }
 
@@ -42,10 +37,10 @@ class ConfigHandler extends Singleton
      */
     public function getModule():array
     {
-        // if(!$this->module){
-        //     if( $this->appconf['dev'] || !file_exists(ROOT_DIR.'/Config/module.json') ) $this->module = ModuleManager::GetInstance()->listInstalledModule();
-        //     $this->loadJsonConfig(ROOT_DIR.'/Config/', 'module.json');
-        // }
+        if(!$this->module){
+            if( $this->appconf['dev'] || !file_exists(ROOT_DIR.'/Config/module.json') ) $this->module = ModuleManager::GetInstance()->listInstalledModule();
+            $this->module = $this->loadJsonConfig(ROOT_DIR.'/Config/', 'module.json');
+        }
         return $this->module;
     }
 
@@ -59,7 +54,6 @@ class ConfigHandler extends Singleton
     public function loadJsonConfig(string $path, string $file = null):array
     {
         if( isset($file) ) {
-            var_dump($path);
             return json_decode(file_get_contents($path . $file), true);
         }
         $raw_files = scandir($path);
