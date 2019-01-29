@@ -6,6 +6,12 @@ use Alzundaz\NitroPHP\BaseClass\Singleton;
 
 class CacheHandler extends Singleton // implements SerializedCacheHandler, JsonCacheHandler
 {
+    /**
+     * Detect if cache entry exist
+     *
+     * @param string $file file path like var/cache/$file
+     * @return string|null return null on inexists, or return type of file
+     */
     public function cacheExists(string $file):?string
     {
         $directory = explode('/', $file)[0];
