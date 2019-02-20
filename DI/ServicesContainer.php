@@ -3,6 +3,7 @@
 namespace Alzundaz\NitroPHP\DI;
 
 use Alzundaz\NitroPHP\BaseClass\Singleton;
+use ReflectionClass;
 
 class ServicesContainer extends Singleton
 {
