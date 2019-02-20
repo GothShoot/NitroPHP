@@ -19,6 +19,18 @@ class ServicesContainer extends Singleton
 		}
 		return $this->resolve($this->instances[$abstract], $parameters);	
 	}
+
+	/**
+	 * @param      $abstract
+	 * @param null $concrete
+	 */
+	public function set($abstract, $concrete = NULL)
+	{
+		if ($concrete === NULL) {
+			$concrete = $abstract;
+		}
+		$this->instances[$abstract] = $concrete;
+	}
 	
 	/**
      * resolve single
