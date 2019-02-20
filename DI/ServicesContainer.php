@@ -14,10 +14,10 @@ class ServicesContainer extends Singleton
      */
 	public function get($abstract, $parameters = [])
 	{
-		if (!isset($this->instances[$abstract])) {
+		if (!isset(self::$instances[$abstract])) {
 			$this->set($abstract);
 		}
-		return $this->resolve($this->instances[$abstract], $parameters);	
+		return $this->resolve(self::$instances[$abstract], $parameters);
 	}
 
 	/**
@@ -29,7 +29,7 @@ class ServicesContainer extends Singleton
 		if ($concrete === NULL) {
 			$concrete = $abstract;
 		}
-		$this->instances[$abstract] = $concrete;
+		self::$instances[$abstract] = $concrete;
 	}
 	
 	/**
