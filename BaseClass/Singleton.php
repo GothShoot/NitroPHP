@@ -1,6 +1,6 @@
 <?php
 
-namespace Alzundaz\NitroPHP\BaseClass;
+namespace NitroPHP\BaseClass;
 
 /**
  * Singleton/Multiton Class
@@ -8,7 +8,7 @@ namespace Alzundaz\NitroPHP\BaseClass;
 class Singleton
 {
     /**
-     * Property used to store instances of classes
+     * Property used to store instances of classes and services
      *
      * @var array $instances
      */
@@ -29,14 +29,18 @@ class Singleton
      *
      * @return void
      */
-    final public static function getInstance()
+    public static function getInstance()
     {
-        $c = get_called_class();
-       
-        if(!isset(static::$instances[$c]))
-        {
-            static::$instances[$c] = new $c;
+        if(isset(static::$serviceName)){
+            $c = static::$serviceName;
+        } else {
+            $c = static::class;
         }
-        return static::$instances[$c];
+        
+        if(!isset(self::$instances[$c]))
+        {
+            self::$instances[$c] = new static;
+        }
+        return self::$instances[$c];
     }
 }

@@ -1,9 +1,8 @@
 <?php
 
-namespace Alzundaz\NitroPHP\DI;
+namespace NitroPHP\DI;
 
 use Alzundaz\NitroPHP\BaseClass\Singleton;
-use ReflectionClass;
 
 class ServicesContainer extends Singleton
 {
@@ -44,7 +43,7 @@ class ServicesContainer extends Singleton
      */
 	public function resolve($concrete, $parameters)
 	{
-		$reflector = new ReflectionClass($concrete);
+		$reflector = new \ReflectionClass($concrete);
 
 		if (!$reflector->isInstantiable()) {
 			throw new Exception("Class {$concrete} is not instantiable");
