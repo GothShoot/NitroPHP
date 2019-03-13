@@ -1,6 +1,6 @@
 <?php
 
-namespace Alzundaz\NitroPHP\BaseClass;
+namespace NitroPHP\BaseClass;
 
 use Alzundaz\NitroPHP\Services\ConfigHandler;
 use Alzundaz\View\Services\TwigFactory;

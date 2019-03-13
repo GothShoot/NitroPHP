@@ -1,6 +1,6 @@
 <?php
 
-namespace Alzundaz\NitroPHP\BaseClass;
+namespace NitroPHP\BaseClass;
 
 use Module\ProfilerModule\Services\Profiler;
 

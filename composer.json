@@ -1,6 +1,6 @@
 {
-    "name": "alzundaz/nitrophp",
-    "description": "Heart of NitroPHP",
+    "name": "plulesolution/nitrophp",
+    "description": "NitroPHP framework",
     "type": "library",
     "license": "MIT",
     "minimum-stability": "dev",
@@ -12,13 +12,13 @@
     ],
     "require": {
         "php": "^7.1",
-        "alzundaz/module-manager": "*",
-        "alzundaz/view-components": "*",
-        "alzundaz/routing-components": "*"
+        "twig/twig": "^2.4",
+        "odan/twig-assets": "^2.0",
+        "czproject/git-php": "^3.16"
     },
     "autoload": {
         "psr-4" : {
-            "Alzundaz\\NitroPHP\\" : ""
+            "NitroPHP\\" : ""
         }
     }
 }
