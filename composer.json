@@ -1,24 +1,49 @@
 {
-    "name": "plulesolution/nitrophp",
-    "description": "NitroPHP framework",
+    "name": "plume-solution/nitrophp",
+    "description": "NitroPHP framework based on Symfony and ReactPHP",
     "type": "library",
-    "license": "MIT",
-    "minimum-stability": "dev",
+    "license": "GPL-3.0-or-later",
     "authors": [
         {
             "name": "GothShoot",
-            "email": "romuald.mocq@yahoo.com"
+            "email": "romuald.mocq@yahoo.com",
+            "role": "author"
+        },
+        {
+            "name": "Plume Solution",
+            "role": "support and hosting",
+            "homepage": "https://www.plumesolution.fr"
+        },
+        {
+            "name": "Axelandre42",
+            "role": "developer"
         }
     ],
     "require": {
-        "php": "^7.1",
-        "twig/twig": "^2.4",
-        "odan/twig-assets": "^2.0",
-        "czproject/git-php": "^3.16"
+        "php": "^7.2",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "ext-apcu": "*",
+        "react/http": "^0.8",
+        "symfony/dotenv": "^4.3",
+        "symfony/framework-bundle": "^4.3",
+        "nyholm/psr7": "^1.1",
+        "sensio/framework-extra-bundle": "^5.3",
+        "symfony/console": "^4.2",
+        "symfony/debug-pack": "^1.0",
+        "symfony/flex": "^1.1",
+        "symfony/maker-bundle": "^1.11",
+        "symfony/monolog-bundle": "^3.3",
+        "symfony/orm-pack": "^1.0",
+        "symfony/psr-http-message-bridge": "^1.2",
+        "symfony/security-bundle": "^4.2",
+        "symfony/swiftmailer-bundle": "^3.2",
+        "symfony/validator": "^4.2",
+        "symfony/yaml": "^4.2"
     },
     "autoload": {
         "psr-4" : {
-            "NitroPHP\\" : ""
+            "PlumeSolution\\NitroPHP\\" : ""
         }
     }
 }
