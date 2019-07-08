@@ -64,7 +64,7 @@ class ServerManager
      */
     public function run()
     {
-        $this->serverThread->start() && $this->serverThread->join();
+        $this->serverThread->start();
         $this->wait();
     }
 
