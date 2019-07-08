@@ -3,6 +3,7 @@
 
 namespace PlumeSolution\NitroPHP\Core;
 
+use App\Kernel;
 use React\EventLoop\Factory;
 use React\EventLoop\LoopInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
