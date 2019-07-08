@@ -59,7 +59,7 @@ class NitroKernel extends BaseKernel
             {
                 throw new \RuntimeException('APP_ENV environment variable is not defined. You need to define environment variables for configuration or add "symfony/dotenv" as a Composer dependency to load variables from a .env file.');
             }
-            (new Dotenv())->load(__DIR__.'/../.env');
+            (new Dotenv())->load($this->getProjectDir().'/../.env');
         }
     }
 
@@ -101,14 +101,6 @@ class NitroKernel extends BaseKernel
                 yield new $class();
             }
         }
-    }
-
-    /**
-     * @return string
-     */
-    public function getProjectDir(): string
-    {
-        return \dirname(__DIR__);
     }
 
     /**
