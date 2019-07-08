@@ -8,6 +8,7 @@ use Nyholm\Psr7\Factory\Psr17Factory;
 use PlumeSolution\NitroPHP\Core\LoopManager;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Class ServerThread
@@ -47,7 +48,7 @@ class ServerThread extends \Thread
         $psr7Factory = new PsrHttpFactory($psr17Factory, $psr17Factory, $psr17Factory, $psr17Factory);
 
         // Callback for the loop
-        $callback = function(Psr\Http\Message\ServerRequestInterface $request) use ($kernel, $httpFoundationFactory, $psr7Factory)
+        $callback = function(ServerRequestInterface $request) use ($kernel, $httpFoundationFactory, $psr7Factory)
         {
             $kernel->incrementCount();
             try
