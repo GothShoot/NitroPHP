@@ -64,8 +64,15 @@ class ServerManager
      */
     public function run()
     {
-        $this->serverThread->start();
-        $this->wait();
+        if($this->serverThread->start())
+        {
+            $this->wait();
+        }
+        else
+        {
+            die ('Unable to start server thread');
+        }
+
     }
 
     /**
