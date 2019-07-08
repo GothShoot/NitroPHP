@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App;
+namespace PlumeSolution\NitroPHP\Core;
 
 use React\EventLoop\Factory;
 use React\EventLoop\LoopInterface;

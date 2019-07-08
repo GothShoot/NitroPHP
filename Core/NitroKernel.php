@@ -11,6 +11,10 @@ use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
 
+/**
+ * Class NitroKernel
+ * @package PlumeSolution\NitroPHP\Core
+ */
 class NitroKernel extends BaseKernel
 {
     use MicroKernelTrait;
