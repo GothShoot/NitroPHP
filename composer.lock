@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "235dce5447c6d7ef4238321f795e155d",
+    "content-hash": "9ceea41a56f49a68e0ba7b8145ad37bd",
     "packages": [
         {
             "name": "alzundaz/module-manager",
@@ -2677,7 +2677,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.1"
+        "php": "^7.4"
     },
     "platform-dev": []
 }
