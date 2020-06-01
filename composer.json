@@ -11,10 +11,11 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7.4",
         "alzundaz/module-manager": "*",
         "alzundaz/view-components": "*",
-        "alzundaz/routing-components": "*"
+        "alzundaz/routing-components": "*",
+        "plume-solution/async": "dev-master"
     },
     "autoload": {
         "psr-4" : {
